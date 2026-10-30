@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Luis Echeverría | Desarrollador/a web</title>
+    <meta name="description" content="Portafolio de Luis Echeverría, desarrollador/a web en formación.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/estilos.css">
+</head>
+
+<body>
+
+    <!-- ===== ENCABEZADO ===== -->
+    <header class="encabezado">
+        <a href="#inicio" class="logo"></a>
+        <button class="btn-menu" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        <nav class="menu" id="menu">
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#habilidades">Habilidades</a>
+            <a href="#proyectos">Proyectos</a>
+            <a href="#tareas">Tareas</a>
+            <a href="#video">Video</a>
+            <a href="#contacto">Contacto</a>
+            <button class="btn-tema" id="btnTema" aria-label="Cambiar tema">🌙</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ===== INICIO ===== -->
+        <section class="inicio" id="inicio">
+            <p class="saludo" id="saludo">Hola, soy Luis</p>
+            <h1>Luis<br>Echeverría</h1>
+            <p class="rol">Desarrollador/a web en formación · Skillnest</p>
+            <p class="intro">Estoy aprendiendo a construir páginas y aplicaciones web con HTML, CSS, JavaScript y Python. Me gusta entender cómo funciona cada cosa antes de seguir con la siguiente.</p>
+            <div class="botones">
+                <a href="#proyectos" class="boton">Ver mis proyectos</a>
+                <a href="#contacto" class="boton boton-claro">Contactarme</a>
+            </div>
+        </section>
+
+        <!-- ===== SOBRE MÍ ===== -->
+        <section class="seccion" id="sobre-mi">
+            <h2>Sobre mí</h2>
+            <div class="dos-columnas">
+                <div>
+                    <p>Soy de Santiago, Chile, y estoy estudiando desarrollo web en Skillnest. Quiero trabajar como desarrollador/a y por ahora busco una oportunidad de práctica o un primer trabajo donde pueda aprender con un equipo.</p>
+                    <p>Mis intereses profesionales son el desarrollo front-end, las aplicaciones con base de datos y hacer interfaces claras y fáciles de usar.</p>
+                </div>
+                <ul class="datos">
+                    <li><strong id="contador" data-meta="3">0</strong> proyectos publicados</li>
+                    <li><strong>5</strong> tecnologías en uso</li>
+                    <li><strong>Siempre</strong> aprendiendo algo nuevo</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== HABILIDADES ===== -->
+        <section class="seccion" id="habilidades">
+            <h2>Tecnologías y habilidades</h2>
+            <p class="sub">Lo que aprendí en Skillnest y lo que estoy practicando por mi cuenta.</p>
+            <div class="habilidades">
+                <div class="habilidad"><span>HTML</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="85"></div>
+                    </div>
+                </div>
+                <div class="habilidad"><span>CSS</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="75"></div>
+                    </div>
+                </div>
+                <div class="habilidad"><span>JavaScript</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="60"></div>
+                    </div>
+                </div>
+                <div class="habilidad"><span>Git y GitHub</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="65"></div>
+                    </div>
+                </div>
+                <div class="habilidad"><span>Python y Flask</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="55"></div>
+                    </div>
+                </div>
+                <div class="habilidad"><span>MySQL</span>
+                    <div class="barra">
+                        <div class="relleno" data-nivel="50"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROYECTOS ===== -->
+        <section class="seccion" id="proyectos">
+            <h2>Proyectos</h2>
+            <div class="filtros">
+                <button class="filtro activo" data-filtro="todos">Todos</button>
+                <button class="filtro" data-filtro="frontend">Front-end</button>
+                <button class="filtro" data-filtro="backend">Con base de datos</button>
+            </div>
+
+            <div class="tarjetas">
+                <article class="tarjeta" data-categoria="backend" data-titulo="CinePedia" data-detalle="Aplicación web de películas hecha con Flask y MySQL. Tiene rutas para listar, ver, crear y editar películas, y una estructura separada en carpetas." data-tecnologias="Python, Flask, MySQL, HTML, CSS"
+                    data-demo="" data-repo="https://github.com/tu-usuario/certificacion_cinepedia">
+                    <div class="captura"><img src="static/images/cinepedia.png" alt="Captura de CinePedia" onerror="this.remove()"></div>
+                    <h3>CinePedia</h3>
+                    <p>Catálogo de películas con Flask y MySQL.</p>
+                    <button class="boton-detalle">Ver detalle</button>
+                </article>
+
+                <article class="tarjeta" data-categoria="backend" data-titulo="BookHub" data-detalle="Aplicación web de libros hecha con Flask y MySQL. Incluye registro e inicio de sesión de usuarios." data-tecnologias="Python, Flask, MySQL, HTML, CSS" data-demo="" data-repo="https://github.com/tu-usuario/bookhub_ensayo">
+                    <div class="captura"><img src="static/images/bookhub.png" alt="Captura de BookHub" onerror="this.remove()"></div>
+                    <h3>BookHub</h3>
+                    <p>Biblioteca de libros con login y registro.</p>
+                    <button class="boton-detalle">Ver detalle</button>
+                </article>
+
+                <article class="tarjeta" data-categoria="frontend" data-titulo="Este portafolio" data-detalle="Mi primera versión de identidad profesional. Tiene tema claro y oscuro, filtros de proyectos, ventana emergente, formulario con validación y diseño responsivo."
+                    data-tecnologias="HTML, CSS, JavaScript, Git, GitHub Pages" data-demo="https://tu-usuario.github.io/portafolio/" data-repo="https://github.com/tu-usuario/portafolio">
+                    <div class="captura"><img src="static/images/portafolio.png" alt="Captura del portafolio" onerror="this.remove()"></div>
+                    <h3>Este portafolio</h3>
+                    <p>La página que estás viendo, hecha desde cero.</p>
+                    <button class="boton-detalle">Ver detalle</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== TAREAS ===== -->
+        <section class="seccion" id="tareas">
+            <h2>Tareas y ejercicios</h2>
+            <p class="sub">Práctica del curso. Cada una tiene su carpeta en GitHub.</p>
+            <ul class="lista-tareas">
+                <li><a href="https://github.com/tu-usuario/tarea-html" target="_blank" rel="noopener">Página de presentación en HTML</a> <span>HTML</span></li>
+                <li><a href="https://github.com/tu-usuario/tarea-css" target="_blank" rel="noopener">Maqueta con Flexbox y Grid</a> <span>CSS</span></li>
+                <li><a href="https://github.com/tu-usuario/tarea-js" target="_blank" rel="noopener">Lista de tareas con JavaScript</a> <span>JavaScript</span></li>
+            </ul>
+        </section>
+
+        <!-- ===== VIDEO ===== -->
+        <section class="seccion" id="video">
+            <h2>Mi presentación en video</h2>
+            <p class="sub">Un minuto para conocerme y ver cómo trabajo.</p>
+            <video controls preload="metadata" poster="static/images/video-portada.png">
+        <source src="static/video/presentacion.mp4" type="video/mp4">
+        Tu navegador no puede reproducir este video.
+      </video>
+        </section>
+
+        <!-- ===== CONTACTO ===== -->
+        <section class="seccion" id="contacto">
+            <h2>Contacto</h2>
+            <div class="dos-columnas">
+                <div>
+                    <p>Si tienes una oportunidad de práctica o trabajo, escríbeme.</p>
+                    <p><a href="mailto:tu-correo@gmail.com">tu-correo@gmail.com</a></p>
+                    <p><a href="https://www.linkedin.com/in/tu-perfil/" target="_blank" rel="noopener">LinkedIn</a></p>
+                    <p><a href="https://github.com/tu-usuario" target="_blank" rel="noopener">GitHub</a></p>
+                </div>
+                <form id="formulario" novalidate>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre">
+                    <small class="error" id="errorNombre"></small>
+
+                    <label for="correo">Tu correo</label>
+                    <input type="email" id="correo" name="correo">
+                    <small class="error" id="errorCorreo"></small>
+
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                    <small class="error" id="errorMensaje"></small>
+
+                    <button type="submit" class="boton">Enviar mensaje</button>
+                    <p class="exito" id="exito"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>© <span id="anio"></span> Nombre Apellido · Hecho con HTML, CSS y JavaScript</p>
+    </footer>
+
+    <!-- ===== VENTANA EMERGENTE ===== -->
+    <div class="fondo-modal" id="modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <button class="cerrar" id="cerrarModal" aria-label="Cerrar">✕</button>
+            <h3 id="modalTitulo"></h3>
+            <p id="modalDetalle"></p>
+            <p><strong>Tecnologías:</strong> <span id="modalTecnologias"></span></p>
+            <div class="botones">
+                <a href="#" id="modalDemo" class="boton" target="_blank" rel="noopener">Ver proyecto</a>
+                <a href="#" id="modalRepo" class="boton boton-claro" target="_blank" rel="noopener">Ver repositorio</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>

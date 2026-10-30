@@ -1,0 +1,601 @@
+/* ===== Colores (tema oscuro, el principal) ===== */
+
+:root {
+    --fondo: #0f1218;
+    --tarjeta: #171b24;
+    --linea: #272d3a;
+    --texto: #d9dde7;
+    --suave: #8d95a8;
+    --titulo: #f4f6fb;
+    --acento: #9db4ff;
+    --sobre-acento: #0f1218;
+    --error: #ff8a80;
+}
+
+
+/* ===== Colores (tema claro, opcional) ===== */
+
+body.claro {
+    --fondo: #f7f8fb;
+    --tarjeta: #ffffff;
+    --linea: #dfe3ec;
+    --texto: #343a4a;
+    --suave: #667085;
+    --titulo: #11141c;
+    --acento: #3552c9;
+    --sobre-acento: #ffffff;
+    --error: #c0392b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px;
+}
+
+body {
+    font-family: "IBM Plex Sans", Arial, sans-serif;
+    color: var(--texto);
+    background: var(--fondo);
+    line-height: 1.7;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1,
+h2,
+h3,
+.logo {
+    font-family: "Bricolage Grotesque", Georgia, sans-serif;
+    color: var(--titulo);
+    line-height: 1.1;
+}
+
+a {
+    color: var(--acento);
+    text-underline-offset: 3px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 3px;
+}
+
+
+/* ===== Encabezado ===== */
+
+.encabezado {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 6%;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--linea);
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--titulo);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--suave);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.menu a:hover {
+    color: var(--titulo);
+}
+
+.btn-menu {
+    display: none;
+    background: none;
+    border: 1px solid var(--linea);
+    color: var(--titulo);
+    font-size: 1.2rem;
+    padding: 2px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-tema {
+    background: none;
+    border: 1px solid var(--linea);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+
+/* ===== Inicio ===== */
+
+.inicio {
+    padding: 140px 6% 100px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.saludo {
+    color: var(--acento);
+    margin-bottom: 14px;
+    min-height: 1.7rem;
+}
+
+.saludo::after {
+    content: "|";
+    animation: parpadeo 0.9s steps(1) infinite;
+}
+
+@keyframes parpadeo {
+    50% {
+        opacity: 0;
+    }
+}
+
+.inicio h1 {
+    font-size: clamp(3.2rem, 11vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.rol {
+    margin: 26px 0 10px;
+    font-size: 1.15rem;
+    color: var(--titulo);
+}
+
+.intro {
+    max-width: 58ch;
+    margin-bottom: 34px;
+    color: var(--suave);
+}
+
+
+/* ===== Botones ===== */
+
+.botones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.boton {
+    display: inline-block;
+    padding: 11px 24px;
+    background: var(--acento);
+    color: var(--sobre-acento);
+    border: 1px solid var(--acento);
+    border-radius: 6px;
+    font: 500 0.95rem "IBM Plex Sans", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.boton:hover {
+    opacity: 0.85;
+}
+
+.boton-claro {
+    background: transparent;
+    color: var(--titulo);
+    border-color: var(--linea);
+}
+
+.boton-claro:hover {
+    border-color: var(--acento);
+    opacity: 1;
+}
+
+
+/* ===== Secciones ===== */
+
+.seccion {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 6%;
+    border-top: 1px solid var(--linea);
+}
+
+.seccion h2 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin-bottom: 22px;
+}
+
+.sub {
+    margin-bottom: 30px;
+    color: var(--suave);
+}
+
+.seccion p {
+    margin-bottom: 14px;
+    max-width: 62ch;
+}
+
+.dos-columnas {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.datos {
+    list-style: none;
+}
+
+.datos li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--linea);
+    color: var(--suave);
+}
+
+.datos li:first-child {
+    padding-top: 0;
+}
+
+.datos strong {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 1.5rem;
+    color: var(--titulo);
+    margin-right: 6px;
+}
+
+
+/* ===== Habilidades ===== */
+
+.habilidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px 50px;
+}
+
+.habilidad span {
+    color: var(--titulo);
+    font-size: 0.95rem;
+}
+
+.barra {
+    height: 3px;
+    background: var(--linea);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.relleno {
+    height: 100%;
+    width: 0;
+    background: var(--acento);
+    border-radius: 2px;
+    transition: width 1.2s ease;
+}
+
+
+/* ===== Proyectos ===== */
+
+.filtros {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.filtro {
+    padding: 7px 16px;
+    background: transparent;
+    color: var(--suave);
+    border: 1px solid var(--linea);
+    border-radius: 20px;
+    cursor: pointer;
+    font: 400 0.9rem "IBM Plex Sans", sans-serif;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.filtro:hover {
+    color: var(--titulo);
+}
+
+.filtro.activo {
+    color: var(--acento);
+    border-color: var(--acento);
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.tarjeta {
+    background: var(--tarjeta);
+    border: 1px solid var(--linea);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s;
+}
+
+.tarjeta:hover {
+    border-color: var(--acento);
+}
+
+.tarjeta.oculta {
+    display: none;
+}
+
+.captura {
+    height: 150px;
+    border-radius: 6px;
+    background: var(--fondo);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.captura:not(:has(img))::before {
+    content: "</>";
+    font-size: 1.8rem;
+    color: var(--suave);
+}
+
+.captura img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tarjeta h3 {
+    font-size: 1.3rem;
+}
+
+.tarjeta p {
+    flex: 1;
+    margin: 0;
+    color: var(--suave);
+    font-size: 0.95rem;
+}
+
+.boton-detalle {
+    align-self: flex-start;
+    padding: 0;
+    background: none;
+    border: none;
+    color: var(--acento);
+    cursor: pointer;
+    font: 500 0.95rem "IBM Plex Sans", sans-serif;
+}
+
+.boton-detalle:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+
+/* ===== Tareas ===== */
+
+.lista-tareas {
+    list-style: none;
+}
+
+.lista-tareas li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--linea);
+}
+
+.lista-tareas span {
+    font-size: 0.85rem;
+    color: var(--suave);
+    align-self: center;
+}
+
+
+/* ===== Video ===== */
+
+video {
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid var(--linea);
+    border-radius: 10px;
+    background: #000;
+    display: block;
+}
+
+
+/* ===== Formulario ===== */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 0.9rem;
+    color: var(--suave);
+    margin-top: 8px;
+}
+
+input,
+textarea {
+    padding: 11px;
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+    background: var(--tarjeta);
+    color: var(--texto);
+    font: inherit;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--acento);
+}
+
+.error {
+    color: var(--error);
+    min-height: 1.1rem;
+    font-size: 0.85rem;
+}
+
+form .boton {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.exito {
+    margin-top: 10px;
+    color: var(--acento);
+}
+
+
+/* ===== Pie ===== */
+
+.pie {
+    text-align: center;
+    padding: 36px 6%;
+    border-top: 1px solid var(--linea);
+    color: var(--suave);
+    font-size: 0.9rem;
+}
+
+
+/* ===== Ventana emergente ===== */
+
+.fondo-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 12, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 20;
+}
+
+.fondo-modal[hidden] {
+    display: none;
+}
+
+.modal {
+    background: var(--tarjeta);
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+    animation: aparecer 0.25s ease;
+}
+
+.modal h3 {
+    font-size: 1.7rem;
+    margin-bottom: 14px;
+}
+
+.modal p {
+    margin-bottom: 12px;
+}
+
+.cerrar {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--suave);
+    cursor: pointer;
+}
+
+@keyframes aparecer {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+/* ===== Tablet ===== */
+
+@media (max-width: 900px) {
+    .dos-columnas {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+}
+
+
+/* ===== Móvil ===== */
+
+@media (max-width: 700px) {
+    .btn-menu {
+        display: block;
+    }
+    .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px 6%;
+        background: var(--fondo);
+        border-bottom: 1px solid var(--linea);
+    }
+    .menu.abierto {
+        display: flex;
+    }
+    .inicio {
+        padding-top: 80px;
+        padding-bottom: 60px;
+    }
+    .seccion {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    .lista-tareas li {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+
+/* Respeta a quienes prefieren menos movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
