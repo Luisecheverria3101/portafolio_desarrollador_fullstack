@@ -172,7 +172,7 @@ formulario.addEventListener("submit", function(evento) {
         // abre el programa de correo con el mensaje listo para enviar
         const asunto = encodeURIComponent("Contacto desde tu portafolio: " + nombre);
         const cuerpo = encodeURIComponent(mensaje + "\n\nMi correo: " + correo);
-        window.location.href = "mailto:tu-correo@gmail.com?subject=" + asunto + "&body=" + cuerpo;
+        window.location.href = "mailto:luisecheverria3101@gmail.com?subject=" + asunto + "&body=" + cuerpo;
         document.getElementById("exito").textContent = "Se abrió tu programa de correo para enviar el mensaje.";
         formulario.reset();
     }
