@@ -1,182 +1,245 @@
-// ===== 1. Menú para móvil =====
-const btnMenu = document.getElementById("btnMenu");
+// ===== 1. MENÚ PARA CELULAR =====
+const botonMenu = document.getElementById("botonMenu");
 const menu = document.getElementById("menu");
+const enlacesMenu = document.querySelectorAll(".enlace-menu");
 
-btnMenu.addEventListener("click", function() {
+botonMenu.addEventListener("click", function() {
     const abierto = menu.classList.toggle("abierto");
-    btnMenu.setAttribute("aria-expanded", abierto);
+    botonMenu.classList.toggle("abierto");
+    botonMenu.setAttribute("aria-expanded", abierto);
 });
 
-// al elegir una sección, se cierra el menú
-menu.querySelectorAll("a").forEach(function(enlace) {
+enlacesMenu.forEach(function(enlace) {
     enlace.addEventListener("click", function() {
         menu.classList.remove("abierto");
-        btnMenu.setAttribute("aria-expanded", false);
+        botonMenu.classList.remove("abierto");
+        botonMenu.setAttribute("aria-expanded", "false");
     });
 });
 
-// ===== 2. Cambio de tema (claro / oscuro) =====
-const btnTema = document.getElementById("btnTema");
 
-function aplicarTema(tema) {
-    document.body.classList.toggle("claro", tema === "claro");
-    btnTema.textContent = tema === "oscuro" ? "☀️" : "🌙";
+// ===== 2. CAMBIO DE TEMA =====
+const botonTema = document.getElementById("botonTema");
+
+if (localStorage.getItem("tema") === "oscuro") {
+    document.body.classList.add("oscuro");
+    botonTema.textContent = "☀️";
 }
 
-// se recuerda la elección usando localStorage
-let temaGuardado = null;
-try { temaGuardado = localStorage.getItem("tema"); } catch (e) {}
-aplicarTema(temaGuardado || "oscuro");
-
-btnTema.addEventListener("click", function() {
-    const nuevoTema = document.body.classList.contains("claro") ? "oscuro" : "claro";
-    aplicarTema(nuevoTema);
-    try { localStorage.setItem("tema", nuevoTema); } catch (e) {}
+botonTema.addEventListener("click", function() {
+    document.body.classList.toggle("oscuro");
+    const esOscuro = document.body.classList.contains("oscuro");
+    botonTema.textContent = esOscuro ? "☀️" : "🌙";
+    localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");
 });
 
-// ===== 3. Saludo que se escribe solo =====
-const saludo = document.getElementById("saludo");
-const textoSaludo = "Hola, soy Luis";
-let letra = 0;
-saludo.textContent = "";
+
+// ===== 3. TEXTO QUE SE ESCRIBE SOLO EN EL INICIO =====
+const textoRol = document.getElementById("textoRol");
+const roles = [
+    "estudiante de desarrollo web",
+    "programador en formación",
+    "buscando mi práctica profesional"
+];
+let numeroRol = 0;
+let letra = roles[0].length;
+let borrando = true;
 
 function escribir() {
-    if (letra < textoSaludo.length) {
-        saludo.textContent += textoSaludo[letra];
-        letra++;
-        setTimeout(escribir, 90);
-    }
-}
-escribir();
+    const rol = roles[numeroRol];
 
-// ===== 4. Filtros de proyectos =====
+    if (borrando) {
+        letra = letra - 1;
+    } else {
+        letra = letra + 1;
+    }
+    textoRol.textContent = rol.substring(0, letra);
+
+    let espera = borrando ? 40 : 80;
+
+    if (!borrando && letra === rol.length) {
+        borrando = true;
+        espera = 1800;
+    } else if (borrando && letra === 0) {
+        borrando = false;
+        numeroRol = (numeroRol + 1) % roles.length;
+    }
+    setTimeout(escribir, espera);
+}
+setTimeout(escribir, 1800);
+
+
+// ===== 4. SCROLL: BARRA DE PROGRESO, SOMBRA, ENLACE ACTIVO Y BOTÓN SUBIR =====
+const progreso = document.getElementById("progreso");
+const encabezado = document.getElementById("encabezado");
+const botonSubir = document.getElementById("subir");
+const secciones = document.querySelectorAll("main section[id]");
+
+window.addEventListener("scroll", function() {
+    const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+    progreso.style.width = (window.scrollY / alturaTotal) * 100 + "%";
+
+    encabezado.classList.toggle("con-sombra", window.scrollY > 20);
+    botonSubir.classList.toggle("visible", window.scrollY > 500);
+
+    let actual = "";
+    secciones.forEach(function(seccion) {
+        if (window.scrollY >= seccion.offsetTop - 140) {
+            actual = seccion.id;
+        }
+    });
+
+    enlacesMenu.forEach(function(enlace) {
+        enlace.classList.toggle("activo", enlace.getAttribute("href") === "#" + actual);
+    });
+});
+
+botonSubir.addEventListener("click", function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+
+// ===== 5. ANIMACIÓN AL APARECER Y CONTADORES =====
+const elementos = document.querySelectorAll(".revelar");
+
+function contar(numero) {
+    const meta = Number(numero.dataset.meta);
+    let valor = 0;
+    const intervalo = setInterval(function() {
+        valor = valor + 1;
+        numero.textContent = valor;
+        if (valor >= meta) {
+            clearInterval(intervalo);
+        }
+    }, 350);
+}
+
+const observador = new IntersectionObserver(function(entradas) {
+    entradas.forEach(function(entrada) {
+        if (entrada.isIntersecting) {
+            entrada.target.classList.add("visible");
+
+            // si es la zona de contadores, los hacemos subir
+            entrada.target.querySelectorAll("[data-meta]").forEach(contar);
+
+            observador.unobserve(entrada.target);
+        }
+    });
+}, { threshold: 0.15 });
+
+elementos.forEach(function(elemento) {
+    observador.observe(elemento);
+});
+
+
+// ===== 6. INFORMACIÓN DE LAS TECNOLOGÍAS =====
+const botonesTecnologia = document.querySelectorAll(".tecnologia");
+const infoTecnologia = document.getElementById("infoTecnologia");
+
+botonesTecnologia.forEach(function(boton) {
+    boton.addEventListener("click", function() {
+        botonesTecnologia.forEach(function(otro) {
+            otro.classList.remove("activo");
+        });
+        boton.classList.add("activo");
+        infoTecnologia.textContent = boton.textContent + ": " + boton.dataset.info;
+    });
+});
+
+
+// ===== 7. FILTROS DE PROYECTOS =====
 const botonesFiltro = document.querySelectorAll(".filtro");
-const tarjetas = document.querySelectorAll(".tarjeta");
+const proyectos = document.querySelectorAll(".proyecto");
 
 botonesFiltro.forEach(function(boton) {
     boton.addEventListener("click", function() {
         const filtro = boton.dataset.filtro;
 
-        botonesFiltro.forEach(function(b) { b.classList.remove("activo"); });
+        botonesFiltro.forEach(function(otro) {
+            otro.classList.remove("activo");
+        });
         boton.classList.add("activo");
 
-        tarjetas.forEach(function(tarjeta) {
-            const coincide = filtro === "todos" || tarjeta.dataset.categoria === filtro;
-            tarjeta.classList.toggle("oculta", !coincide);
+        proyectos.forEach(function(proyecto) {
+            const coincide = filtro === "todos" || proyecto.dataset.categoria.includes(filtro);
+            proyecto.classList.toggle("oculto", !coincide);
         });
     });
 });
 
-// ===== 5. Ventana emergente con el detalle del proyecto =====
+
+// ===== 8. VENTANA EMERGENTE (MODAL) =====
 const modal = document.getElementById("modal");
-const modalTitulo = document.getElementById("modalTitulo");
-const modalDetalle = document.getElementById("modalDetalle");
-const modalTecnologias = document.getElementById("modalTecnologias");
+const modalCerrar = document.getElementById("modalCerrar");
 const modalDemo = document.getElementById("modalDemo");
-const modalRepo = document.getElementById("modalRepo");
+
+function abrirModal(proyecto) {
+    document.getElementById("modalTitulo").textContent = proyecto.dataset.titulo;
+    document.getElementById("modalDescripcion").textContent = proyecto.dataset.descripcion;
+    document.getElementById("modalTecnologias").textContent = proyecto.dataset.tecnologias;
+    document.getElementById("modalRepo").href = proyecto.dataset.repo;
+
+    if (proyecto.dataset.demo) {
+        modalDemo.href = proyecto.dataset.demo;
+        modalDemo.style.display = "inline-block";
+    } else {
+        modalDemo.style.display = "none";
+    }
+
+    modal.classList.add("abierto");
+    modal.setAttribute("aria-hidden", "false");
+    modalCerrar.focus();
+}
+
+function cerrarModal() {
+    modal.classList.remove("abierto");
+    modal.setAttribute("aria-hidden", "true");
+}
 
 document.querySelectorAll(".boton-detalle").forEach(function(boton) {
     boton.addEventListener("click", function() {
-        const datos = boton.closest(".tarjeta").dataset;
-
-        modalTitulo.textContent = datos.titulo;
-        modalDetalle.textContent = datos.detalle;
-        modalTecnologias.textContent = datos.tecnologias;
-        modalRepo.href = datos.repo;
-
-        // si el proyecto no tiene enlace en línea, se oculta ese botón
-        if (datos.demo) {
-            modalDemo.href = datos.demo;
-            modalDemo.hidden = false;
-        } else {
-            modalDemo.hidden = true;
-        }
-
-        modal.hidden = false;
+        abrirModal(boton.closest(".proyecto"));
     });
 });
 
-function cerrarModal() { modal.hidden = true; }
+modalCerrar.addEventListener("click", cerrarModal);
 
-document.getElementById("cerrarModal").addEventListener("click", cerrarModal);
 modal.addEventListener("click", function(evento) {
-    if (evento.target === modal) cerrarModal(); // clic en el fondo
+    if (evento.target === modal) {
+        cerrarModal();
+    }
 });
+
 document.addEventListener("keydown", function(evento) {
-    if (evento.key === "Escape") cerrarModal();
+    if (evento.key === "Escape") {
+        cerrarModal();
+    }
 });
 
-// ===== 6. Barras de habilidades y contador al hacer scroll =====
-const rellenos = document.querySelectorAll(".relleno");
-const contador = document.getElementById("contador");
 
-function animarContador() {
-    const meta = Number(contador.dataset.meta);
-    let numero = 0;
-    const intervalo = setInterval(function() {
-        numero++;
-        contador.textContent = numero;
-        if (numero >= meta) clearInterval(intervalo);
-    }, 300);
-}
-
-const observador = new IntersectionObserver(function(entradas) {
-    entradas.forEach(function(entrada) {
-        if (!entrada.isIntersecting) return;
-
-        if (entrada.target.id === "habilidades") {
-            rellenos.forEach(function(relleno) {
-                relleno.style.width = relleno.dataset.nivel + "%";
-            });
-        }
-        if (entrada.target.id === "sobre-mi") {
-            animarContador();
-        }
-        observador.unobserve(entrada.target); // solo la primera vez
-    });
-}, { threshold: 0.3 });
-
-observador.observe(document.getElementById("habilidades"));
-observador.observe(document.getElementById("sobre-mi"));
-
-// ===== 7. Formulario de contacto con validación =====
+// ===== 9. FORMULARIO DE CONTACTO =====
 const formulario = document.getElementById("formulario");
+const error = document.getElementById("error");
+
+// IMPORTANTE: cambia este correo por el tuyo
+const miCorreo = "TU_CORREO@gmail.com";
 
 formulario.addEventListener("submit", function(evento) {
     evento.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
-    const correo = document.getElementById("correo").value.trim();
     const mensaje = document.getElementById("mensaje").value.trim();
-    let todoBien = true;
 
-    document.getElementById("errorNombre").textContent = "";
-    document.getElementById("errorCorreo").textContent = "";
-    document.getElementById("errorMensaje").textContent = "";
-    document.getElementById("exito").textContent = "";
-
-    if (nombre.length < 2) {
-        document.getElementById("errorNombre").textContent = "Escribe tu nombre.";
-        todoBien = false;
-    }
-    if (!correo.includes("@") || !correo.includes(".")) {
-        document.getElementById("errorCorreo").textContent = "Escribe un correo válido.";
-        todoBien = false;
-    }
-    if (mensaje.length < 10) {
-        document.getElementById("errorMensaje").textContent = "El mensaje debe tener al menos 10 letras.";
-        todoBien = false;
+    if (nombre === "" || mensaje === "") {
+        error.textContent = "Escribe tu nombre y tu mensaje antes de enviar.";
+        return;
     }
 
-    if (todoBien) {
-        // abre el programa de correo con el mensaje listo para enviar
-        const asunto = encodeURIComponent("Contacto desde tu portafolio: " + nombre);
-        const cuerpo = encodeURIComponent(mensaje + "\n\nMi correo: " + correo);
-        window.location.href = "mailto:luisecheverria3101@gmail.com?subject=" + asunto + "&body=" + cuerpo;
-        document.getElementById("exito").textContent = "Se abrió tu programa de correo para enviar el mensaje.";
-        formulario.reset();
-    }
+    error.textContent = "";
+
+    const asunto = encodeURIComponent("Contacto desde tu portafolio - " + nombre);
+    const cuerpo = encodeURIComponent(mensaje);
+    window.location.href = "mailto:" + miCorreo + "?subject=" + asunto + "&body=" + cuerpo;
+
+    formulario.reset();
 });
-
-// ===== 8. Año en el pie de página =====
-document.getElementById("anio").textContent = new Date().getFullYear();
