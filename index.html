@@ -4,242 +4,826 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portafolio de Luis Echeverria, desarrollador web en formación.">
-    <title>Luis Echeverria | Portafolio</title>
+
+    <meta name="description" content="Portafolio personal de Luis Echeverria, estudiante de programación y desarrollo web.">
+
+    <meta name="author" content="Luis Echeverria">
+
+    <title>LE.dev | Portafolio</title>
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Iconos Devicon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="static/css/estilos.css">
+
+    <!-- JavaScript -->
+    <script src="static/js/script.js" defer></script>
 </head>
 
 <body>
+
+    <!-- BARRA DE PROGRESO -->
     <div class="progreso" id="progreso"></div>
 
+
+    <!-- ==========================================
+         ENCABEZADO
+    =========================================== -->
+
     <header class="encabezado" id="encabezado">
-        <a href="#inicio" class="logo">LE<span>.dev</span></a>
-        <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
-        <nav class="menu" id="menu">
-            <a href="#sobre-mi" class="enlace-menu">Sobre mí</a>
-            <a href="#camino" class="enlace-menu">Mi camino</a>
-            <a href="#tecnologias" class="enlace-menu">Tecnologías</a>
-            <a href="#proyectos" class="enlace-menu">Proyectos</a>
-            <a href="#extras" class="enlace-menu">Extras</a>
-            <a href="#contacto" class="enlace-menu">Contacto</a>
-            <button class="boton-tema" id="botonTema" aria-label="Cambiar tema">🌙</button>
-        </nav>
+
+        <div class="contenedor nav-contenedor">
+
+            <a href="#inicio" class="logo">LE<span>.dev</span></a>
+
+            <button class="boton-menu" id="botonMenu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="menu" id="menu" aria-label="Navegación principal">
+
+                <a href="#inicio" class="enlace-menu activo">Inicio</a>
+
+                <a href="#sobre-mi" class="enlace-menu">Sobre mí</a>
+
+                <a href="#camino" class="enlace-menu">Trayectoria</a>
+
+                <a href="#tecnologias" class="enlace-menu">Tecnologías</a>
+
+                <a href="#proyectos" class="enlace-menu">Proyectos</a>
+
+                <a href="#contacto" class="enlace-menu">Contacto</a>
+
+                <button class="boton-tema" id="botonTema" aria-label="Cambiar tema" type="button">
+                    🌙
+                </button>
+
+            </nav>
+
+        </div>
+
     </header>
 
+
     <main>
-        <!-- INICIO -->
-        <section class="inicio" id="inicio">
+
+
+        <!-- ==========================================
+             01. INICIO
+        =========================================== -->
+
+        <section class="inicio contenedor" id="inicio">
+
             <div class="inicio-texto">
-                <p class="saludo">Hola, soy</p>
-                <h1>Luis Echeverria</h1>
-                <p class="rol">Soy <span id="textoRol">estudiante de desarrollo web</span></p>
-                <p class="descripcion">Vivo en Santiago de Chile y construyo páginas y aplicaciones web. Llegué a la programación por los computadores y los videojuegos.</p>
+
+                <span class="saludo">Hola, soy</span>
+
+                <h1>Luis <span>Echeverria</span></h1>
+
+                <p class="rol">
+                    <span id="textoRol">estudiante de desarrollo web</span>
+                    <span class="cursor">|</span>
+                </p>
+
+                <p class="descripcion">
+                    Estudiante de programación interesado en el desarrollo web, la tecnología y la creación de soluciones digitales. Actualmente estoy buscando una oportunidad para realizar mi práctica profesional y seguir desarrollando mis habilidades.
+                </p>
+
                 <div class="botones">
-                    <a href="#proyectos" class="boton boton-principal">Ver mis proyectos</a>
-                    <a href="#contacto" class="boton boton-secundario">Contactarme</a>
+
+                    <a href="#proyectos" class="boton boton-principal">
+                        Ver proyectos
+                    </a>
+
+                    <a href="#contacto" class="boton boton-secundario">
+                        Contactarme
+                    </a>
+
                 </div>
+
             </div>
 
-            <div class="editor" aria-hidden="true">
-                <div class="editor-barra"><i></i><i></i><i></i><span>luis.js</span></div>
-                <pre><code><b>const</b> luis = {
-  ciudad: <em>"Santiago, Chile"</em>,
-  estudia: <em>"Desarrollo web"</em>,
-  stack: [<em>"HTML"</em>, <em>"CSS"</em>, <em>"JS"</em>,
-          <em>"Python"</em>, <em>"Flask"</em>],
-  busca: <em>"Práctica profesional"</em>
+
+            <!-- EDITOR DE CÓDIGO -->
+
+            <div class="editor">
+
+                <div class="editor-barra">
+
+                    <div class="editor-puntos">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <span>perfil.js</span>
+
+                </div>
+
+                <pre><code><span class="codigo-color">const</span> desarrollador = {
+  nombre: <span class="codigo-texto">"Luis Echeverria"</span>,
+  especialidad: <span class="codigo-texto">"Desarrollo web"</span>,
+  lenguajes: [
+    <span class="codigo-texto">"HTML"</span>,
+    <span class="codigo-texto">"CSS"</span>,
+    <span class="codigo-texto">"JavaScript"</span>,
+    <span class="codigo-texto">"Python"</span>
+  ],
+  objetivo: <span class="codigo-texto">"Seguir aprendiendo"</span>,
+  disponible: <span class="codigo-boolean">true</span>
 };</code></pre>
+
             </div>
+
         </section>
 
-        <!-- CONTADORES -->
-        <section class="contadores revelar">
-            <div><strong data-meta="3">0</strong><span>Proyectos</span></div>
-            <div><strong data-meta="8">0</strong><span>Tecnologías</span></div>
-            <div><strong data-meta="2">0</strong><span>Trabajos extra</span></div>
+
+
+        <!-- ==========================================
+             CONTADORES
+        =========================================== -->
+
+        <section class="contadores contenedor revelar">
+
+            <div>
+                <strong data-meta="3">0</strong>
+                <span>Proyectos</span>
+            </div>
+
+            <div>
+                <strong data-meta="9">0</strong>
+                <span>Tecnologías</span>
+            </div>
+
+            <div>
+                <strong data-meta="2">0</strong>
+                <span>Áreas de desarrollo</span>
+            </div>
+
         </section>
 
-        <!-- SOBRE MÍ -->
-        <section class="seccion" id="sobre-mi">
-            <h2>Sobre mí</h2>
+
+
+        <!-- ==========================================
+             02. SOBRE MÍ
+        =========================================== -->
+
+        <section class="seccion contenedor" id="sobre-mi">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">01 / SOBRE MÍ</span>
+
+                <h2>
+                    Conoce un poco <span>sobre mí</span>
+                </h2>
+
+            </div>
+
+
             <div class="sobre-mi">
+
+                <!-- FOTOGRAFÍA -->
+
+                <div class="sobre-mi-foto revelar">
+
+                    <img src="static/images/foto_perfil.png" alt="Fotografía de Luis Echeverria" loading="lazy">
+
+                </div>
+
+
+                <!-- DESCRIPCIÓN -->
+
                 <div class="texto revelar">
-                    <p>Soy estudiante de desarrollo web en Skillnest y vengo de estudiar un técnico en programación. Me gusta todo el desarrollo en general, tanto lo que se ve en pantalla como lo que pasa por detrás.</p>
-                    <p>Estoy buscando mi práctica profesional, donde pueda seguir aprendiendo en un equipo real y aportar con lo que ya sé hacer.</p>
-                </div>
-                <ul class="datos revelar">
-                    <li><strong>Ubicación</strong> Santiago, Chile</li>
-                    <li><strong>Estudio</strong> Desarrollo web en Skillnest</li>
-                    <li><strong>Busco</strong> Práctica profesional</li>
-                    <li><strong>Me interesa</strong> Frontend y backend</li>
-                </ul>
-            </div>
-        </section>
 
-        <!-- MI CAMINO -->
-        <section class="seccion" id="camino">
-            <h2>Mi camino</h2>
-            <ol class="linea">
-                <li class="revelar">
-                    <h3>Técnico en programación</h3>
-                    <p>Aprendí las bases de la programación y me interesé por el desarrollo.</p>
-                </li>
-                <li class="revelar">
-                    <h3>Desarrollo web en Skillnest</h3>
-                    <p>HTML, CSS, JavaScript, Git y GitHub, además de Python y Flask.</p>
-                </li>
-                <li class="revelar">
-                    <h3>Primeros proyectos</h3>
-                    <p>CinePedia, BookHub y HeadSafe, este último en equipo para la feria técnico profesional.</p>
-                </li>
-                <li class="revelar">
-                    <h3>Buscando mi práctica</h3>
-                    <p>Quiero seguir creciendo como desarrollador en un equipo real.</p>
-                </li>
-            </ol>
-        </section>
+                    <h3>¡Hola! Soy Luis Echeverria.</h3>
 
-        <!-- TECNOLOGÍAS -->
-        <section class="seccion" id="tecnologias">
-            <h2>Tecnologías y habilidades</h2>
-            <p class="subtitulo">Haz clic en una tecnología para ver qué hago con ella.</p>
-            <div class="grupos">
-                <div class="grupo revelar">
-                    <h3>Frontend</h3>
-                    <div class="tecnologias">
-                        <button class="tecnologia" data-info="Estructura de las páginas: etiquetas semánticas, formularios, listas y enlaces.">HTML</button>
-                        <button class="tecnologia" data-info="Estilos, Flexbox, Grid, variables, animaciones y diseño responsivo con media queries.">CSS</button>
-                        <button class="tecnologia" data-info="Interacción en la página: DOM, eventos, menús, filtros y ventanas emergentes.">JavaScript</button>
-                    </div>
-                </div>
-                <div class="grupo revelar">
-                    <h3>Backend</h3>
-                    <div class="tecnologias">
-                        <button class="tecnologia" data-info="Lenguaje que uso para el backend de mis proyectos.">Python</button>
-                        <button class="tecnologia" data-info="Microframework de Python: rutas, plantillas y login de usuarios.">Flask</button>
-                        <button class="tecnologia" data-info="Base de datos de mis proyectos: tablas, relaciones y consultas.">MySQL</button>
-                    </div>
-                </div>
-                <div class="grupo revelar">
-                    <h3>Herramientas</h3>
-                    <div class="tecnologias">
-                        <button class="tecnologia" data-info="Control de versiones: commits, ramas y trabajo en equipo.">Git</button>
-                        <button class="tecnologia" data-info="Guardo mis repositorios y publico mis páginas con GitHub Pages.">GitHub</button>
-                    </div>
-                </div>
-            </div>
-            <p class="info-tecnologia" id="infoTecnologia">Selecciona una tecnología.</p>
-        </section>
+                    <p>
+                        Soy estudiante de programación con interés en el desarrollo de aplicaciones web y la tecnología. Me gusta aprender herramientas nuevas y llevar mis conocimientos a proyectos prácticos.
+                    </p>
 
-        <!-- PROYECTOS -->
-        <section class="seccion" id="proyectos">
-            <h2>Proyectos</h2>
-            <div class="filtros">
-                <button class="filtro activo" data-filtro="todos">Todos</button>
-                <button class="filtro" data-filtro="frontend">Frontend</button>
-                <button class="filtro" data-filtro="backend">Backend</button>
-                <button class="filtro" data-filtro="equipo">En equipo</button>
+                    <p>
+                        Disfruto resolver problemas, experimentar con distintas soluciones y desarrollar proyectos que tengan una utilidad real. Mi objetivo es continuar creciendo como desarrollador y adquirir experiencia en el mundo laboral.
+                    </p>
+
+                </div>
+
+
+                <!-- INFORMACIÓN PERSONAL -->
+
+                <div class="datos revelar">
+
+                    <div class="dato">
+                        <span>Especialidad</span>
+                        <strong>Programación</strong>
+                    </div>
+
+                    <div class="dato">
+                        <span>Enfoque</span>
+                        <strong>Desarrollo web</strong>
+                    </div>
+
+                    <div class="dato">
+                        <span>Situación actual</span>
+                        <strong>Buscando práctica</strong>
+                    </div>
+
+                    <div class="dato">
+                        <span>Ubicación</span>
+                        <strong>Chile</strong>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="proyectos">
-                <article class="proyecto revelar" data-categoria="backend frontend" data-titulo="CinePedia" data-descripcion="Aplicación web sobre películas hecha con Flask y MySQL. Tiene rutas para ver el catálogo de cine, base de datos y plantillas HTML." data-tecnologias="Python, Flask, MySQL, HTML, CSS"
-                    data-demo="" data-repo="https://github.com/Luisecheverria3101/Certificacion_cinepedia_luise_echeverria">
-                    <div class="imagen"><img src="static/images/cinepedia.png" alt="Captura de CinePedia"></div>
-                    <div class="proyecto-info">
-                        <h3>CinePedia</h3>
-                        <p>Aplicación web de películas con Flask y MySQL.</p>
-                        <p class="etiquetas"><span>Python</span><span>Flask</span><span>MySQL</span></p>
-                        <button class="boton-detalle">Ver detalle</button>
-                    </div>
+        </section>
+
+
+
+        <!-- ==========================================
+             03. TRAYECTORIA
+        =========================================== -->
+
+        <section class="seccion contenedor" id="camino">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">02 / TRAYECTORIA</span>
+
+                <h2>
+                    Mi camino en la <span>programación</span>
+                </h2>
+
+            </div>
+
+
+            <div class="linea">
+
+                <article class="revelar">
+
+                    <span class="fecha">Formación académica</span>
+
+                    <h3>Especialidad en Programación</h3>
+
+                    <p>
+                        Formación técnica enfocada en programación, desarrollo de aplicaciones y resolución de problemas.
+                    </p>
+
                 </article>
 
-                <article class="proyecto revelar" data-categoria="equipo frontend" data-titulo="HeadSafe" data-descripcion="Proyecto en equipo que presentamos en la feria técnico profesional. Usamos Git y GitHub para coordinarnos y publicamos una demo en línea." data-tecnologias="HTML, CSS, JavaScript, Git, GitHub"
-                    data-demo="https://juanprevals.github.io/headsafe" data-repo="https://github.com/Luisecheverria3101">
-                    <div class="imagen"><img src="static/images/headsafe.png" alt="Captura de HeadSafe"></div>
-                    <div class="proyecto-info">
-                        <h3>HeadSafe</h3>
-                        <p>Proyecto en equipo para la feria técnico profesional.</p>
-                        <p class="etiquetas"><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
-                        <button class="boton-detalle">Ver detalle</button>
-                    </div>
+
+                <article class="revelar">
+
+                    <span class="fecha">Desarrollo de proyectos</span>
+
+                    <h3>Aprendizaje práctico</h3>
+
+                    <p>
+                        Desarrollo de proyectos personales y académicos utilizando diferentes tecnologías y herramientas.
+                    </p>
+
                 </article>
 
-                <article class="proyecto revelar" data-categoria="frontend" data-titulo="Este portafolio" data-descripcion="Mi portafolio profesional hecho a mano. Tiene menú dinámico, cambio de tema, filtros, ventanas emergentes, animaciones al hacer scroll y es responsivo."
-                    data-tecnologias="HTML, CSS, JavaScript, GitHub Pages" data-demo="" data-repo="https://github.com/Luisecheverria3101/portafolio_desarrollador_fullstack">
-                    <div class="imagen"><img src="static/images/portafolio.png" alt="Captura del portafolio"></div>
-                    <div class="proyecto-info">
-                        <h3>Este portafolio</h3>
-                        <p>Mi presentación profesional hecha con HTML, CSS y JS.</p>
-                        <p class="etiquetas"><span>HTML</span><span>CSS</span><span>JavaScript</span></p>
-                        <button class="boton-detalle">Ver detalle</button>
-                    </div>
+
+                <article class="revelar">
+
+                    <span class="fecha">Objetivo actual</span>
+
+                    <h3>Práctica profesional</h3>
+
+                    <p>
+                        Busco una oportunidad para aplicar mis conocimientos, adquirir experiencia y continuar aprendiendo.
+                    </p>
+
                 </article>
+
             </div>
+
         </section>
 
-        <!-- EXTRAS -->
-        <section class="seccion" id="extras">
-            <h2>Tareas y trabajos adicionales</h2>
-            <p class="subtitulo">Ejercicios que hice fuera de los proyectos principales.</p>
-            <div class="extras">
-                <div class="extra revelar">
-                    <h3>BookHub</h3>
-                    <p>Aplicación de libros con Flask y MySQL. Incluye registro e inicio de sesión.</p>
-                    <a href="https://github.com/Luisecheverria3101" target="_blank" rel="noopener">Ver en GitHub</a>
-                </div>
-                <div class="extra revelar">
-                    <h3>TaskTrack</h3>
-                    <p>Maqueta de una aplicación de tareas, para practicar la estructura de un proyecto Flask.</p>
-                    <a href="https://github.com/Luisecheverria3101" target="_blank" rel="noopener">Ver en GitHub</a>
-                </div>
+
+
+        <!-- ==========================================
+             04. TECNOLOGÍAS
+        =========================================== -->
+
+        <section class="seccion contenedor tecnologias" id="tecnologias">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">03 / TECNOLOGÍAS</span>
+
+                <h2>
+                    Herramientas que <span>utilizo</span>
+                </h2>
+
+                <p>
+                    Selecciona una tecnología para conocer más sobre ella.
+                </p>
+
             </div>
+
+
+            <div class="tecnologias-grid revelar">
+
+                <button class="tecnologia-card" data-info="Lenguaje de marcado utilizado para estructurar el contenido de las páginas web." type="button">
+                    <i class="devicon-html5-plain colored"></i>
+                    <span>HTML5</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Lenguaje de estilos utilizado para diseñar y organizar la apariencia de las páginas web." type="button">
+                    <i class="devicon-css3-plain colored"></i>
+                    <span>CSS3</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Lenguaje de programación que permite agregar interactividad y funcionalidades a las páginas web." type="button">
+                    <i class="devicon-javascript-plain colored"></i>
+                    <span>JavaScript</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Lenguaje de programación utilizado para desarrollar aplicaciones y automatizar tareas." type="button">
+                    <i class="devicon-python-plain colored"></i>
+                    <span>Python</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Microframework de Python utilizado para crear aplicaciones y servicios web." type="button">
+                    <i class="devicon-flask-original"></i>
+                    <span>Flask</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Sistema de gestión de bases de datos relacionales utilizado para almacenar y consultar información." type="button">
+                    <i class="devicon-mysql-original colored"></i>
+                    <span>MySQL</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Framework CSS que facilita la creación de interfaces web responsivas." type="button">
+                    <i class="devicon-bootstrap-plain colored"></i>
+                    <span>Bootstrap</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Sistema de control de versiones utilizado para registrar y administrar cambios en proyectos." type="button">
+                    <i class="devicon-git-plain colored"></i>
+                    <span>Git</span>
+                </button>
+
+
+                <button class="tecnologia-card" data-info="Plataforma para alojar repositorios y colaborar en proyectos de desarrollo." type="button">
+                    <i class="devicon-github-original"></i>
+                    <span>GitHub</span>
+                </button>
+
+            </div>
+
+
+            <div class="tecnologia-info" id="tecnologiaInfo">
+                Selecciona una tecnología para ver su descripción.
+            </div>
+
         </section>
 
-        <!-- CONTACTO -->
-        <section class="seccion" id="contacto">
-            <h2>Contacto</h2>
-            <p class="subtitulo">Si quieres hablar conmigo sobre una práctica o un proyecto, escríbeme.</p>
+
+
+        <!-- ==========================================
+             05. PROYECTOS
+        =========================================== -->
+
+        <section class="seccion contenedor" id="proyectos">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">04 / PROYECTOS</span>
+
+                <h2>
+                    Algunos de mis <span>trabajos</span>
+                </h2>
+
+                <p>
+                    Proyectos personales y académicos en los que he aplicado mis conocimientos de programación y desarrollo.
+                </p>
+
+            </div>
+
+
+            <!-- FILTROS -->
+
+            <div class="filtros revelar" aria-label="Filtrar proyectos">
+
+                <button class="filtro activo" data-filtro="todos" type="button">
+                    Todos
+                </button>
+
+                <button class="filtro" data-filtro="web" type="button">
+                    Desarrollo web
+                </button>
+
+                <button class="filtro" data-filtro="hardware" type="button">
+                    Hardware e IoT
+                </button>
+
+            </div>
+
+
+            <!-- CARRUSEL -->
+
+            <div class="carrusel-proyectos">
+
+                <button class="carrusel-flecha anterior" id="proyectoAnterior" aria-label="Proyecto anterior" type="button">
+                    &#10094;
+                </button>
+
+
+                <div class="proyectos">
+
+
+                    <!-- CINEPEDIA -->
+
+                    <article class="proyecto revelar" data-categoria="web" data-titulo="CinePedia" data-descripcion="CinePedia es una aplicación web orientada a la exploración y gestión de información cinematográfica. Desarrollada con Flask y MySQL, utiliza plantillas dinámicas y una estructura organizada para consultar y administrar información relacionada con películas."
+                        data-tecnologias="Python, Flask, MySQL, HTML, CSS, Bootstrap" data-demo="" data-repo="https://github.com/Luisecheverria3101/Certificacion_cinepedia_luise_echeverria">
+
+                        <div class="imagen">
+
+                            <img src="static/images/cinepedia.png" alt="Captura de CinePedia" loading="lazy">
+
+                        </div>
+
+
+                        <div class="proyecto-info">
+
+                            <span class="proyecto-tipo">
+                                Aplicación web
+                            </span>
+
+                            <h3>CinePedia</h3>
+
+                            <p>
+                                Aplicación web para explorar y consultar información cinematográfica mediante una interfaz organizada.
+                            </p>
+
+
+                            <div class="etiquetas">
+                                <span>Python</span>
+                                <span>Flask</span>
+                                <span>MySQL</span>
+                            </div>
+
+
+                            <button class="boton-detalle" type="button">
+                                Ver detalles <span>↗</span>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- HEADSAFE -->
+
+                    <article class="proyecto revelar" data-categoria="hardware" data-titulo="HeadSafe" data-descripcion="HeadSafe es un dispositivo complementario diseñado para adaptarse a distintos tipos de cascos y contribuir a la seguridad de sus usuarios. Mediante sensores de movimiento e impacto, identifica situaciones que podrían corresponder a un accidente y activa un protocolo de alerta a través de una aplicación móvil."
+                        data-tecnologias="ESP32, MPU-6050, Arduino IDE, sensores, aplicación móvil" data-demo="https://juanprevals.github.io/headsafe/" data-repo="https://github.com/JuanPrevals/headsafe">
+
+                        <div class="imagen">
+
+                            <img src="static/images/headsafe.png" alt="Proyecto HeadSafe" loading="lazy">
+
+                        </div>
+
+
+                        <div class="proyecto-info">
+
+                            <span class="proyecto-tipo">
+                                Proyecto tecnológico
+                            </span>
+
+                            <h3>HeadSafe</h3>
+
+                            <p>
+                                Dispositivo complementario para cascos que detecta posibles accidentes y permite enviar alertas.
+                            </p>
+
+
+                            <div class="etiquetas">
+                                <span>ESP32</span>
+                                <span>MPU-6050</span>
+                                <span>IoT</span>
+                            </div>
+
+
+                            <button class="boton-detalle" type="button">
+                                Ver detalles <span>↗</span>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- AEGIS -->
+
+                    <article class="proyecto revelar" data-categoria="web" data-titulo="Aegis" data-descripcion="Aegis es una plataforma web enfocada en contribuir a la seguridad de las mujeres en la comuna de San Ramón. Integra un mapa interactivo para identificar zonas de riesgo y un sistema colaborativo donde las usuarias pueden publicar situaciones de acoso, compartir información y comentar experiencias."
+                        data-tecnologias="HTML, CSS, JavaScript, mapas interactivos" data-demo="https://app-aegis-1.onrender.com/profile" data-repo="https://github.com/alee29304/app_aegis/tree/main/AEGIS_app_v2">
+
+                        <div class="imagen">
+
+                            <img src="static/images/aegis.png" alt="Proyecto Aegis" loading="lazy">
+
+                        </div>
+
+
+                        <div class="proyecto-info">
+
+                            <span class="proyecto-tipo">
+                                Aplicación web
+                            </span>
+
+                            <h3>Aegis</h3>
+
+                            <p>
+                                Plataforma colaborativa con mapas interactivos para identificar zonas de riesgo y compartir información.
+                            </p>
+
+
+                            <div class="etiquetas">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+
+
+                            <button class="boton-detalle" type="button">
+                                Ver detalles <span>↗</span>
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <button class="carrusel-flecha siguiente" id="proyectoSiguiente" aria-label="Proyecto siguiente" type="button">
+                    &#10095;
+                </button>
+
+            </div>
+
+
+            <div class="carrusel-indicadores" id="carruselIndicadores" aria-label="Páginas del carrusel"></div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             06. INTERESES
+        =========================================== -->
+
+        <section class="seccion contenedor" id="extras">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">05 / INTERESES</span>
+
+                <h2>
+                    Más allá del <span>código</span>
+                </h2>
+
+            </div>
+
+
+            <div class="extras revelar">
+
+                <div class="extra">
+
+                    <span>01</span>
+
+                    <h3>Aprendizaje continuo</h3>
+
+                    <p>
+                        Explorar nuevas herramientas y tecnologías.
+                    </p>
+
+                </div>
+
+
+                <div class="extra">
+
+                    <span>02</span>
+
+                    <h3>Resolución de problemas</h3>
+
+                    <p>
+                        Buscar soluciones prácticas y eficientes.
+                    </p>
+
+                </div>
+
+
+                <div class="extra">
+
+                    <span>03</span>
+
+                    <h3>Desarrollo de proyectos</h3>
+
+                    <p>
+                        Convertir ideas en soluciones funcionales.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             07. CONTACTO
+        =========================================== -->
+
+        <section class="seccion contenedor" id="contacto">
+
+            <div class="encabezado-seccion revelar">
+
+                <span class="etiqueta-seccion">06 / CONTACTO</span>
+
+                <h2>
+                    Hablemos de <span>oportunidades</span>
+                </h2>
+
+                <p>
+                    Estoy interesado en oportunidades de práctica profesional y desarrollo.
+                </p>
+
+            </div>
+
+
             <div class="contacto">
-                <div class="contacto-datos">
-                    <p><strong>Correo</strong><br><a href="mailto:TU_CORREO@gmail.com">TU_CORREO@gmail.com</a></p>
-                    <p><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/in/TU_USUARIO/" target="_blank" rel="noopener">linkedin.com/in/TU_USUARIO</a></p>
-                    <p><strong>GitHub</strong><br><a href="https://github.com/Luisecheverria3101" target="_blank" rel="noopener">github.com/Luisecheverria3101</a></p>
+
+
+                <!-- INFORMACIÓN DE CONTACTO -->
+
+                <div class="contacto-datos revelar">
+
+                    <h3>Información de contacto</h3>
+
+                    <p>
+                        Puedes comunicarte conmigo a través de estos medios.
+                    </p>
+
+
+                    <a href="mailto:luisecheverria3101@gmail.com">
+                        ✉ luisecheverria3101@gmail.com
+                    </a>
+
+                    <a href="https://github.com/Luisecheverria3101" target="_blank" rel="noopener noreferrer">
+                        ⌘ GitHub
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/luisecheverria3101/" target="_blank" rel="noopener noreferrer">
+                        ↗ LinkedIn
+                    </a>
+
                 </div>
-                <form class="formulario" id="formulario" novalidate>
+
+
+
+                <!-- FORMULARIO -->
+
+                <form class="formulario revelar" id="formulario">
+
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" placeholder="Tu nombre">
+
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name" required>
+
+
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje"></textarea>
-                    <p class="error" id="error"></p>
-                    <button type="submit" class="boton boton-principal">Enviar por correo</button>
+
+                    <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..." rows="5" required></textarea>
+
+
+                    <p class="error" id="error" role="alert" aria-live="polite"></p>
+
+
+                    <button type="submit" class="boton boton-principal">
+                        Enviar mensaje
+                    </button>
+
                 </form>
+
             </div>
+
         </section>
+
     </main>
 
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
     <footer class="pie">
-        <p>© 2026 Luis Echeverria · Hecho con HTML, CSS y JavaScript</p>
+
+        <div class="contenedor">
+
+            <a href="#inicio" class="logo">
+                LE<span>.dev</span>
+            </a>
+
+            <p>
+                Diseñado y desarrollado por Luis Echeverria.
+            </p>
+
+            <span>
+                © 2026 - Todos los derechos reservados.
+            </span>
+
+        </div>
+
     </footer>
 
-    <button class="subir" id="subir" aria-label="Volver arriba">↑</button>
+
+
+    <!-- ==========================================
+         BOTÓN VOLVER ARRIBA
+    =========================================== -->
+
+    <button class="subir" id="subir" aria-label="Volver arriba" type="button">
+        ↑
+    </button>
+
+
+
+    <!-- ==========================================
+         MODAL DE PROYECTOS
+    =========================================== -->
 
     <div class="modal" id="modal" aria-hidden="true">
+
         <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
-            <button class="modal-cerrar" id="modalCerrar" aria-label="Cerrar">✕</button>
-            <h3 id="modalTitulo"></h3>
+
+            <button class="modal-cerrar" id="modalCerrar" aria-label="Cerrar ventana" type="button">
+                &times;
+            </button>
+
+
+            <span class="etiqueta-seccion">
+                DETALLES DEL PROYECTO
+            </span>
+
+
+            <h2 id="modalTitulo">Proyecto</h2>
+
+
             <p id="modalDescripcion"></p>
-            <p><strong>Tecnologías:</strong> <span id="modalTecnologias"></span></p>
-            <div class="modal-enlaces">
-                <a href="#" id="modalDemo" class="boton boton-principal" target="_blank" rel="noopener">Ver demo</a>
-                <a href="#" id="modalRepo" class="boton boton-secundario" target="_blank" rel="noopener">Ver repositorio</a>
+
+
+            <div class="modal-tecnologias">
+
+                <span>Tecnologías utilizadas</span>
+
+                <p id="modalTecnologias"></p>
+
             </div>
+
+
+            <div class="modal-botones">
+
+                <a id="modalDemo" href="#" target="_blank" rel="noopener noreferrer" class="boton boton-principal">
+                    Ver página ↗
+                </a>
+
+
+                <a id="modalRepo" href="#" target="_blank" rel="noopener noreferrer" class="boton boton-secundario">
+                    GitHub ↗
+                </a>
+
+            </div>
+
         </div>
+
     </div>
 
-    <script src="static/js/script.js"></script>
 </body>
 
 </html>

@@ -1,245 +1,739 @@
-// ===== 1. MENÚ PARA CELULAR =====
+// ==========================================
+// LE.dev - PORTAFOLIO PERSONAL
+// JavaScript principal
+// ==========================================
+
+
+// ==========================================
+// 1. MENÚ DE NAVEGACIÓN
+// ==========================================
+
 const botonMenu = document.getElementById("botonMenu");
 const menu = document.getElementById("menu");
 const enlacesMenu = document.querySelectorAll(".enlace-menu");
 
-botonMenu.addEventListener("click", function() {
-    const abierto = menu.classList.toggle("abierto");
-    botonMenu.classList.toggle("abierto");
-    botonMenu.setAttribute("aria-expanded", abierto);
-});
+function cerrarMenu() {
+    if (menu) {
+        menu.classList.remove("abierto");
+    }
+
+    if (botonMenu) {
+        botonMenu.setAttribute("aria-expanded", "false");
+        botonMenu.setAttribute("aria-label", "Abrir menú");
+    }
+}
+
+if (botonMenu && menu) {
+    botonMenu.addEventListener("click", function() {
+        menu.classList.toggle("abierto");
+
+        const abierto = menu.classList.contains("abierto");
+
+        botonMenu.setAttribute("aria-expanded", abierto);
+        botonMenu.setAttribute(
+            "aria-label",
+            abierto ? "Cerrar menú" : "Abrir menú"
+        );
+    });
+}
 
 enlacesMenu.forEach(function(enlace) {
-    enlace.addEventListener("click", function() {
-        menu.classList.remove("abierto");
-        botonMenu.classList.remove("abierto");
-        botonMenu.setAttribute("aria-expanded", "false");
-    });
+    enlace.addEventListener("click", cerrarMenu);
+});
+
+document.addEventListener("keydown", function(evento) {
+    if (evento.key === "Escape") {
+        cerrarMenu();
+    }
 });
 
 
-// ===== 2. CAMBIO DE TEMA =====
+// ==========================================
+// 2. CAMBIO DE TEMA
+// ==========================================
+
 const botonTema = document.getElementById("botonTema");
 
-if (localStorage.getItem("tema") === "oscuro") {
+const temaGuardado = localStorage.getItem("tema");
+
+if (temaGuardado === "oscuro") {
     document.body.classList.add("oscuro");
-    botonTema.textContent = "☀️";
 }
 
-botonTema.addEventListener("click", function() {
-    document.body.classList.toggle("oscuro");
-    const esOscuro = document.body.classList.contains("oscuro");
-    botonTema.textContent = esOscuro ? "☀️" : "🌙";
-    localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");
-});
+function actualizarIconoTema() {
+    if (!botonTema) return;
+
+    const temaOscuro = document.body.classList.contains("oscuro");
+
+    botonTema.textContent = temaOscuro ? "☀️" : "🌙";
+
+    botonTema.setAttribute(
+        "aria-label",
+        temaOscuro ? "Cambiar a tema claro" : "Cambiar a tema oscuro"
+    );
+}
+
+actualizarIconoTema();
+
+if (botonTema) {
+    botonTema.addEventListener("click", function() {
+        document.body.classList.toggle("oscuro");
+
+        const temaOscuro = document.body.classList.contains("oscuro");
+
+        localStorage.setItem(
+            "tema",
+            temaOscuro ? "oscuro" : "claro"
+        );
+
+        actualizarIconoTema();
+    });
+}
 
 
-// ===== 3. TEXTO QUE SE ESCRIBE SOLO EN EL INICIO =====
+// ==========================================
+// 3. TEXTO ANIMADO DE INICIO
+// ==========================================
+
 const textoRol = document.getElementById("textoRol");
-const roles = [
-    "estudiante de desarrollo web",
-    "programador en formación",
-    "buscando mi práctica profesional"
-];
-let numeroRol = 0;
-let letra = roles[0].length;
-let borrando = true;
 
-function escribir() {
-    const rol = roles[numeroRol];
+if (textoRol) {
+    const roles = [
+        "estudiante de desarrollo web",
+        "desarrollador en formación",
+        "estudiante de programación"
+    ];
 
-    if (borrando) {
-        letra = letra - 1;
-    } else {
-        letra = letra + 1;
+    let indiceRol = 0;
+    let indiceLetra = 0;
+    let borrando = false;
+
+    function escribirTexto() {
+        const textoActual = roles[indiceRol];
+
+        if (!borrando) {
+            textoRol.textContent = textoActual.substring(
+                0,
+                indiceLetra + 1
+            );
+
+            indiceLetra++;
+
+            if (indiceLetra === textoActual.length) {
+                borrando = true;
+                setTimeout(escribirTexto, 1800);
+                return;
+            }
+        } else {
+            textoRol.textContent = textoActual.substring(
+                0,
+                indiceLetra - 1
+            );
+
+            indiceLetra--;
+
+            if (indiceLetra === 0) {
+                borrando = false;
+                indiceRol = (indiceRol + 1) % roles.length;
+            }
+        }
+
+        setTimeout(escribirTexto, borrando ? 45 : 85);
     }
-    textoRol.textContent = rol.substring(0, letra);
 
-    let espera = borrando ? 40 : 80;
-
-    if (!borrando && letra === rol.length) {
-        borrando = true;
-        espera = 1800;
-    } else if (borrando && letra === 0) {
-        borrando = false;
-        numeroRol = (numeroRol + 1) % roles.length;
-    }
-    setTimeout(escribir, espera);
+    escribirTexto();
 }
-setTimeout(escribir, 1800);
 
 
-// ===== 4. SCROLL: BARRA DE PROGRESO, SOMBRA, ENLACE ACTIVO Y BOTÓN SUBIR =====
-const progreso = document.getElementById("progreso");
+// ==========================================
+// 4. SCROLL Y BARRA DE PROGRESO
+// ==========================================
+
 const encabezado = document.getElementById("encabezado");
+const progreso = document.getElementById("progreso");
 const botonSubir = document.getElementById("subir");
-const secciones = document.querySelectorAll("main section[id]");
 
-window.addEventListener("scroll", function() {
-    const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
-    progreso.style.width = (window.scrollY / alturaTotal) * 100 + "%";
+function actualizarScroll() {
+    const scrollActual = window.scrollY;
 
-    encabezado.classList.toggle("con-sombra", window.scrollY > 20);
-    botonSubir.classList.toggle("visible", window.scrollY > 500);
+    const alturaDocumento =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-    let actual = "";
+    if (progreso) {
+        const porcentaje = alturaDocumento > 0 ?
+            (scrollActual / alturaDocumento) * 100 :
+            0;
+
+        progreso.style.width = porcentaje + "%";
+    }
+
+    if (encabezado) {
+        encabezado.classList.toggle(
+            "desplazado",
+            scrollActual > 30
+        );
+    }
+
+    if (botonSubir) {
+        botonSubir.classList.toggle(
+            "visible",
+            scrollActual > 400
+        );
+    }
+
+    actualizarEnlaceActivo();
+}
+
+window.addEventListener("scroll", actualizarScroll);
+actualizarScroll();
+
+
+// ==========================================
+// 5. BOTÓN VOLVER ARRIBA
+// ==========================================
+
+if (botonSubir) {
+    botonSubir.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
+
+// ==========================================
+// 6. ENLACE ACTIVO DE NAVEGACIÓN
+// ==========================================
+
+function actualizarEnlaceActivo() {
+    const secciones = document.querySelectorAll("main section[id]");
+
+    let seccionActual = "";
+
     secciones.forEach(function(seccion) {
-        if (window.scrollY >= seccion.offsetTop - 140) {
-            actual = seccion.id;
+        const posicion = seccion.offsetTop - 180;
+
+        if (window.scrollY >= posicion) {
+            seccionActual = seccion.id;
         }
     });
 
     enlacesMenu.forEach(function(enlace) {
-        enlace.classList.toggle("activo", enlace.getAttribute("href") === "#" + actual);
-    });
-});
+        enlace.classList.remove("activo");
 
-botonSubir.addEventListener("click", function() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-
-// ===== 5. ANIMACIÓN AL APARECER Y CONTADORES =====
-const elementos = document.querySelectorAll(".revelar");
-
-function contar(numero) {
-    const meta = Number(numero.dataset.meta);
-    let valor = 0;
-    const intervalo = setInterval(function() {
-        valor = valor + 1;
-        numero.textContent = valor;
-        if (valor >= meta) {
-            clearInterval(intervalo);
+        if (enlace.getAttribute("href") === "#" + seccionActual) {
+            enlace.classList.add("activo");
         }
-    }, 350);
+    });
 }
 
-const observador = new IntersectionObserver(function(entradas) {
-    entradas.forEach(function(entrada) {
-        if (entrada.isIntersecting) {
-            entrada.target.classList.add("visible");
 
-            // si es la zona de contadores, los hacemos subir
-            entrada.target.querySelectorAll("[data-meta]").forEach(contar);
+// ==========================================
+// 7. ANIMACIONES AL APARECER
+// ==========================================
 
-            observador.unobserve(entrada.target);
+const elementosRevelar = document.querySelectorAll(".revelar");
+
+if ("IntersectionObserver" in window) {
+    const observador = new IntersectionObserver(
+        function(entradas, observador) {
+            entradas.forEach(function(entrada) {
+                if (entrada.isIntersecting) {
+                    entrada.target.classList.add("visible");
+                    observador.unobserve(entrada.target);
+                }
+            });
+        }, {
+            threshold: 0.12
+        }
+    );
+
+    elementosRevelar.forEach(function(elemento) {
+        observador.observe(elemento);
+    });
+} else {
+    elementosRevelar.forEach(function(elemento) {
+        elemento.classList.add("visible");
+    });
+}
+
+
+// ==========================================
+// 8. CONTADORES ANIMADOS
+// ==========================================
+
+const contadores = document.querySelectorAll("[data-meta]");
+
+function animarContador(contador) {
+    const objetivo = Number(contador.dataset.meta);
+
+    if (!Number.isFinite(objetivo) || objetivo < 0) return;
+
+    let numero = 0;
+
+    const incremento = Math.max(
+        1,
+        Math.ceil(objetivo / 40)
+    );
+
+    const intervalo = setInterval(function() {
+        numero += incremento;
+
+        if (numero >= objetivo) {
+            numero = objetivo;
+            clearInterval(intervalo);
+        }
+
+        contador.textContent = numero;
+    }, 40);
+}
+
+if ("IntersectionObserver" in window) {
+    const observadorContadores = new IntersectionObserver(
+        function(entradas, observador) {
+            entradas.forEach(function(entrada) {
+                if (entrada.isIntersecting) {
+                    animarContador(entrada.target);
+                    observador.unobserve(entrada.target);
+                }
+            });
+        }, {
+            threshold: 0.5
+        }
+    );
+
+    contadores.forEach(function(contador) {
+        observadorContadores.observe(contador);
+    });
+} else {
+    contadores.forEach(function(contador) {
+        contador.textContent = contador.dataset.meta;
+    });
+}
+
+
+// ==========================================
+// 9. INFORMACIÓN DE TECNOLOGÍAS
+// ==========================================
+
+const tarjetasTecnologias = document.querySelectorAll(".tecnologia-card");
+const tecnologiaInfo = document.getElementById("tecnologiaInfo");
+
+tarjetasTecnologias.forEach(function(tarjeta) {
+    tarjeta.addEventListener("click", function() {
+        tarjetasTecnologias.forEach(function(elemento) {
+            elemento.classList.remove("seleccionada");
+        });
+
+        tarjeta.classList.add("seleccionada");
+
+        if (tecnologiaInfo) {
+            tecnologiaInfo.textContent =
+                tarjeta.dataset.info || "Información no disponible.";
         }
     });
-}, { threshold: 0.15 });
-
-elementos.forEach(function(elemento) {
-    observador.observe(elemento);
 });
 
 
-// ===== 6. INFORMACIÓN DE LAS TECNOLOGÍAS =====
-const botonesTecnologia = document.querySelectorAll(".tecnologia");
-const infoTecnologia = document.getElementById("infoTecnologia");
+// ==========================================
+// 10. FILTROS DE PROYECTOS
+// ==========================================
 
-botonesTecnologia.forEach(function(boton) {
-    boton.addEventListener("click", function() {
-        botonesTecnologia.forEach(function(otro) {
-            otro.classList.remove("activo");
-        });
-        boton.classList.add("activo");
-        infoTecnologia.textContent = boton.textContent + ": " + boton.dataset.info;
-    });
-});
-
-
-// ===== 7. FILTROS DE PROYECTOS =====
 const botonesFiltro = document.querySelectorAll(".filtro");
 const proyectos = document.querySelectorAll(".proyecto");
 
 botonesFiltro.forEach(function(boton) {
     boton.addEventListener("click", function() {
-        const filtro = boton.dataset.filtro;
-
-        botonesFiltro.forEach(function(otro) {
-            otro.classList.remove("activo");
+        botonesFiltro.forEach(function(elemento) {
+            elemento.classList.remove("activo");
         });
+
         boton.classList.add("activo");
 
+        const categoria = boton.dataset.filtro;
+
         proyectos.forEach(function(proyecto) {
-            const coincide = filtro === "todos" || proyecto.dataset.categoria.includes(filtro);
-            proyecto.classList.toggle("oculto", !coincide);
+            const categoriaProyecto = proyecto.dataset.categoria;
+
+            const coincide =
+                categoria === "todos" ||
+                categoria === categoriaProyecto;
+
+            proyecto.style.display = coincide ? "" : "none";
         });
+
+        if (carrusel) {
+            carrusel.scrollTo({
+                left: 0,
+                behavior: "auto"
+            });
+
+            requestAnimationFrame(function() {
+                actualizarIndicadores();
+                actualizarCarrusel();
+            });
+        }
     });
 });
 
 
-// ===== 8. VENTANA EMERGENTE (MODAL) =====
+// ==========================================
+// 11. MODAL DE DETALLES DE PROYECTOS
+// ==========================================
+
 const modal = document.getElementById("modal");
 const modalCerrar = document.getElementById("modalCerrar");
+
+const modalTitulo = document.getElementById("modalTitulo");
+const modalDescripcion = document.getElementById("modalDescripcion");
+const modalTecnologias = document.getElementById("modalTecnologias");
+
 const modalDemo = document.getElementById("modalDemo");
+const modalRepo = document.getElementById("modalRepo");
+
+let elementoAnterior = null;
 
 function abrirModal(proyecto) {
-    document.getElementById("modalTitulo").textContent = proyecto.dataset.titulo;
-    document.getElementById("modalDescripcion").textContent = proyecto.dataset.descripcion;
-    document.getElementById("modalTecnologias").textContent = proyecto.dataset.tecnologias;
-    document.getElementById("modalRepo").href = proyecto.dataset.repo;
-
-    if (proyecto.dataset.demo) {
-        modalDemo.href = proyecto.dataset.demo;
-        modalDemo.style.display = "inline-block";
-    } else {
-        modalDemo.style.display = "none";
+    if (!modal ||
+        !modalTitulo ||
+        !modalDescripcion ||
+        !modalTecnologias ||
+        !modalDemo ||
+        !modalRepo
+    ) {
+        console.error("No se encontraron los elementos del modal.");
+        return;
     }
+
+    elementoAnterior = document.activeElement;
+
+    modalTitulo.textContent =
+        proyecto.dataset.titulo || "Proyecto";
+
+    modalDescripcion.textContent =
+        proyecto.dataset.descripcion || "Sin descripción disponible.";
+
+    modalTecnologias.textContent =
+        proyecto.dataset.tecnologias || "No especificadas.";
+
+    modalDemo.href = proyecto.dataset.demo || "#";
+    modalRepo.href = proyecto.dataset.repo || "#";
 
     modal.classList.add("abierto");
     modal.setAttribute("aria-hidden", "false");
-    modalCerrar.focus();
-}
 
-function cerrarModal() {
-    modal.classList.remove("abierto");
-    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "hidden";
+
+    modalCerrar.focus();
 }
 
 document.querySelectorAll(".boton-detalle").forEach(function(boton) {
     boton.addEventListener("click", function() {
-        abrirModal(boton.closest(".proyecto"));
+        const proyecto = boton.closest(".proyecto");
+
+        if (proyecto) {
+            abrirModal(proyecto);
+        }
     });
 });
 
-modalCerrar.addEventListener("click", cerrarModal);
+function cerrarModal() {
+    if (!modal) return;
 
-modal.addEventListener("click", function(evento) {
-    if (evento.target === modal) {
-        cerrarModal();
+    modal.classList.remove("abierto");
+    modal.setAttribute("aria-hidden", "true");
+
+    document.body.style.overflow = "";
+
+    if (elementoAnterior) {
+        elementoAnterior.focus();
+        elementoAnterior = null;
     }
-});
+}
+
+if (modalCerrar) {
+    modalCerrar.addEventListener("click", cerrarModal);
+}
+
+if (modal) {
+    modal.addEventListener("click", function(evento) {
+        if (evento.target === modal) {
+            cerrarModal();
+        }
+    });
+}
 
 document.addEventListener("keydown", function(evento) {
-    if (evento.key === "Escape") {
+    if (
+        evento.key === "Escape" &&
+        modal &&
+        modal.classList.contains("abierto")
+    ) {
         cerrarModal();
     }
 });
 
+[modalDemo, modalRepo].forEach(function(enlace) {
+    if (!enlace) return;
 
-// ===== 9. FORMULARIO DE CONTACTO =====
+    enlace.addEventListener("click", function(evento) {
+        if (!enlace.getAttribute("href") ||
+            enlace.getAttribute("href") === "#"
+        ) {
+            evento.preventDefault();
+            alert("Todavía falta configurar este enlace.");
+        }
+    });
+});
+
+
+// ==========================================
+// 12. FORMULARIO DE CONTACTO
+// ==========================================
+
 const formulario = document.getElementById("formulario");
-const error = document.getElementById("error");
+const campoNombre = document.getElementById("nombre");
+const campoMensaje = document.getElementById("mensaje");
+const mensajeError = document.getElementById("error");
 
-// IMPORTANTE: cambia este correo por el tuyo
-const miCorreo = "TU_CORREO@gmail.com";
+if (formulario) {
+    formulario.addEventListener("submit", function(evento) {
+        evento.preventDefault();
 
-formulario.addEventListener("submit", function(evento) {
-    evento.preventDefault();
+        const nombre = campoNombre ?
+            campoNombre.value.trim() :
+            "";
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const mensaje = document.getElementById("mensaje").value.trim();
+        const mensaje = campoMensaje ?
+            campoMensaje.value.trim() :
+            "";
 
-    if (nombre === "" || mensaje === "") {
-        error.textContent = "Escribe tu nombre y tu mensaje antes de enviar.";
-        return;
+        if (!nombre || !mensaje) {
+            if (mensajeError) {
+                mensajeError.textContent =
+                    "Completa todos los campos antes de continuar.";
+            }
+
+            return;
+        }
+
+        // Correo configurado para recibir los mensajes
+        const correoDestino = "luisecheverria3101@gmail.com";
+
+        const asunto = encodeURIComponent(
+            "Contacto desde el portafolio de Luis Echeverria"
+        );
+
+        const cuerpo = encodeURIComponent(
+            "Nombre: " + nombre +
+            "\n\nMensaje:\n" + mensaje
+        );
+
+        const enlaceCorreo =
+            "mailto:" + correoDestino +
+            "?subject=" + asunto +
+            "&body=" + cuerpo;
+
+        if (mensajeError) {
+            mensajeError.textContent = "";
+        }
+
+        window.location.href = enlaceCorreo;
+    });
+}
+
+
+// ==========================================
+// 13. CARRUSEL DE PROYECTOS
+// ==========================================
+
+const carrusel = document.querySelector(".proyectos");
+const anterior = document.getElementById("proyectoAnterior");
+const siguiente = document.getElementById("proyectoSiguiente");
+const indicadores = document.getElementById("carruselIndicadores");
+
+
+// Obtener los proyectos visibles
+function proyectosVisibles() {
+    if (!carrusel) return [];
+
+    return Array.from(carrusel.querySelectorAll(".proyecto"))
+        .filter(function(proyecto) {
+            return getComputedStyle(proyecto).display !== "none";
+        });
+}
+
+
+// Calcular las posiciones de las páginas
+function obtenerPaginasCarrusel() {
+    if (!carrusel) return [];
+
+    const maxScroll = Math.max(
+        0,
+        carrusel.scrollWidth - carrusel.clientWidth
+    );
+
+    if (maxScroll <= 2) {
+        return [0];
     }
 
-    error.textContent = "";
+    const paginas = [];
+    const anchoPagina = carrusel.clientWidth;
 
-    const asunto = encodeURIComponent("Contacto desde tu portafolio - " + nombre);
-    const cuerpo = encodeURIComponent(mensaje);
-    window.location.href = "mailto:" + miCorreo + "?subject=" + asunto + "&body=" + cuerpo;
+    let posicion = 0;
 
-    formulario.reset();
-});
+    while (posicion < maxScroll) {
+        paginas.push(posicion);
+        posicion += anchoPagina;
+    }
+
+    if (maxScroll - paginas[paginas.length - 1] > 2) {
+        paginas.push(maxScroll);
+    }
+
+    return paginas;
+}
+
+
+// Crear los indicadores
+function actualizarIndicadores() {
+    if (!indicadores || !carrusel) return;
+
+    indicadores.innerHTML = "";
+
+    const paginas = obtenerPaginasCarrusel();
+
+    paginas.forEach(function(posicion, indice) {
+        const punto = document.createElement("button");
+
+        punto.type = "button";
+        punto.classList.add("indicador");
+
+        punto.setAttribute(
+            "aria-label",
+            "Ir a la página " + (indice + 1)
+        );
+
+        punto.addEventListener("click", function() {
+            carrusel.scrollTo({
+                left: posicion,
+                behavior: "smooth"
+            });
+        });
+
+        indicadores.appendChild(punto);
+    });
+
+    actualizarIndicador();
+}
+
+
+// Resaltar el indicador actual
+function actualizarIndicador() {
+    if (!indicadores || !carrusel) return;
+
+    const puntos = indicadores.querySelectorAll(".indicador");
+    const paginas = obtenerPaginasCarrusel();
+
+    if (!puntos.length || !paginas.length) return;
+
+    let paginaActual = 0;
+    let distanciaMinima = Infinity;
+
+    paginas.forEach(function(posicion, indice) {
+        const distancia = Math.abs(carrusel.scrollLeft - posicion);
+
+        if (distancia < distanciaMinima) {
+            distanciaMinima = distancia;
+            paginaActual = indice;
+        }
+    });
+
+    puntos.forEach(function(punto, indice) {
+        const activo = indice === paginaActual;
+
+        punto.classList.toggle("activo", activo);
+
+        if (activo) {
+            punto.setAttribute("aria-current", "true");
+        } else {
+            punto.removeAttribute("aria-current");
+        }
+    });
+}
+
+
+// Actualizar flechas e indicadores
+function actualizarCarrusel() {
+    if (!carrusel) return;
+
+    const maxScroll = Math.max(
+        0,
+        carrusel.scrollWidth - carrusel.clientWidth
+    );
+
+    const posicion = carrusel.scrollLeft;
+
+    if (anterior) {
+        anterior.style.display =
+            posicion <= 2 ? "none" : "flex";
+    }
+
+    if (siguiente) {
+        siguiente.style.display =
+            maxScroll <= 2 || posicion >= maxScroll - 2 ?
+            "none" :
+            "flex";
+    }
+
+    actualizarIndicador();
+}
+
+
+// Desplazar el carrusel
+function moverCarrusel(direccion) {
+    if (!carrusel) return;
+
+    const proyecto = proyectosVisibles()[0];
+
+    if (!proyecto) return;
+
+    const espacio = parseFloat(
+        getComputedStyle(carrusel).columnGap
+    ) || 0;
+
+    const desplazamiento =
+        proyecto.offsetWidth + espacio;
+
+    carrusel.scrollBy({
+        left: desplazamiento * direccion,
+        behavior: "smooth"
+    });
+}
+
+
+// Eventos del carrusel
+if (carrusel) {
+    if (anterior) {
+        anterior.addEventListener("click", function() {
+            moverCarrusel(-1);
+        });
+    }
+
+    if (siguiente) {
+        siguiente.addEventListener("click", function() {
+            moverCarrusel(1);
+        });
+    }
+
+    carrusel.addEventListener("scroll", actualizarCarrusel);
+
+    window.addEventListener("resize", function() {
+        actualizarIndicadores();
+        actualizarCarrusel();
+    });
+
+    actualizarIndicadores();
+    actualizarCarrusel();
+}
